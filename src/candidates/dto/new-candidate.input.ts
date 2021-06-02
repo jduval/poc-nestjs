@@ -7,11 +7,11 @@ export class NewCandidateInput {
   @MaxLength(30)
   name: string;
 
-  // @Field({ nullable: true })
-  // @IsOptional()
-  // @Length(30, 255)
-  // description?: string;
+  @Field({ nullable: true })
+  @IsOptional()
+  @Length(30, 255)
+  resume?: string;
 
-  @Field(() => [String])
+  @Field((type) => [String])
   skills: string[];
 }

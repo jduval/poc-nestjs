@@ -3,13 +3,14 @@ import {
   Args,
   Mutation,
   Query,
-  Resolver /* Subscription */,
+  Resolver,
+  // Subscription,
 } from '@nestjs/graphql';
 // import { PubSub } from 'apollo-server-express';
 import { NewCandidateInput } from './dto/new-candidate.input';
 // import { RecipesArgs } from './dto/recipes.args';
-import { Candidate } from './candidate.model';
-import { CandidateService } from './candidate.service';
+import { Candidate } from './models/candidates.model';
+import { CandidateService } from './candidates.service';
 
 // const pubSub = new PubSub();
 
