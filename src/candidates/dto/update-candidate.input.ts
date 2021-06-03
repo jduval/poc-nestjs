@@ -1,7 +1,10 @@
 import { IsOptional, Length, MaxLength } from 'class-validator';
-import { NewCandidateInput } from '../../graphql-admins';
+import { UpdateCandidateInput } from '../../graphql-candidates';
 
-export class NewCandidateDto extends NewCandidateInput {
+export class UpdateCandidateDto extends UpdateCandidateInput {
+  @MaxLength(30)
+  id: string;
+
   @MaxLength(30)
   name: string;
 

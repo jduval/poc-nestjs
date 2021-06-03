@@ -1,23 +1,26 @@
-import { Injectable } from '@nestjs/common';
-import { NewCandidateInput } from './dto/new-candidate.input';
-// import { RecipesArgs } from './dto/recipes.args';
-import { Candidate } from './models/candidates.model';
-import { ID } from '@nestjs/graphql';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { NewCandidateDto } from './dto/new-candidate.input';
+import { UpdateCandidateDto } from './dto/update-candidate.input';
+import { Candidate } from '../graphql-candidates';
 
 @Injectable()
 export class CandidateService {
-  /**
-   * MOCK
-   * Put some real business logic here
-   * Left for demonstration purposes
-   */
-  private readonly candidates: Array<Candidate> = [];
+  private readonly candidates: Array<Candidate> = [
+    {
+      id: '1',
+      name: 'Serge',
+      resume: 'azeajvd jahzve avzje havzjehvaz jveae',
+      skills: ['truc', 'truc 1'],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+  ];
 
-  async create(data: NewCandidateInput): Promise<Candidate> {
-    console.log(data);
+  async create(data: NewCandidateDto): Promise<Candidate> {
     const newCandidate = {
       id: (this.candidates.length + 1).toString(),
-      creationDate: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
       ...data,
     } as Candidate;
     this.candidates.push(newCandidate);
@@ -41,5 +44,20 @@ export class CandidateService {
     }
     this.candidates.splice(indexToBeRemoved, 1);
     return true;
+  }
+
+  async update(data: UpdateCandidateDto): Promise<Candidate> {
+    const currentCandidateIndex = this.candidates.findIndex(
+      (candidate) => candidate.id === data.id,
+    );
+    if (currentCandidateIndex === -1) {
+      throw new NotFoundException('1');
+    }
+    this.candidates[currentCandidateIndex] = {
+      ...this.candidates[currentCandidateIndex],
+      ...data,
+      updatedAt: new Date(),
+    };
+    return this.candidates[currentCandidateIndex];
   }
 }

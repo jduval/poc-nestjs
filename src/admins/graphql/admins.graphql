@@ -1,0 +1,34 @@
+scalar Date
+
+type Query {
+  candidates: [Candidate]
+  candidate(id: String!): Candidate
+}
+
+type Mutation {
+  addCandidate(newCandidateData: NewCandidateInput): Candidate
+  removeCandidate(id: String!): Boolean
+  updateCandidate(updateCandidateData: UpdateCandidateInput!): Candidate
+}
+
+type Candidate {
+  id: String!
+  name: String!
+  resume: String
+  createdAt: Date
+  updatedAt: Date
+  skills: [String!]
+}
+
+input UpdateCandidateInput {
+  id: String!
+  name: String
+  resume: String
+  skills: [String]
+}
+
+input NewCandidateInput {
+  name: String
+  resume: String
+  skills: [String!]
+}
